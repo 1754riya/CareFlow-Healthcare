@@ -1,0 +1,211 @@
+/* styles.css */
+
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #f9f9f9;
+  }
+  
+  .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 80%;
+    max-width: 1200px;
+    background: #ffffff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    overflow: hidden;
+  }
+  
+  .form-container {
+    flex: 1;
+    padding: 40px;
+  }
+  
+  h2 {
+    margin-top: 0;
+  }
+  
+  .google-signup {
+    display: inline-block;
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border: none;
+    border-radius: 30px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    vertical-align: middle;
+
+  }
+  .google-signup:hover {
+    background-color: #357ae8; /* Darker shade on hover */
+    transform: scale(1.05); /* Slightly enlarge the button */
+  }
+.google-img{
+    vertical-align: middle;
+    display: inline-block;
+}
+   
+  .x-signup {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border: none;
+    border-radius: 30px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+
+    
+    
+  }
+  .x-signup:hover {
+    background-color: Black ; /* Darker shade on hover */
+    transform: scale(1.05); /* Slightly enlarge the button */
+  }
+  
+  .google-signup {
+    background-color: #4285F4;
+    color: white;
+  }
+
+ 
+  .x-signup {
+    background-color: #000000;
+    color: white;
+  }
+  .x-signup:hover {
+
+  }
+  
+  .or {
+    text-align: center;
+    margin: 20px 0;
+    font-weight: bold;
+  }
+  
+  form label {
+    display: block;
+    margin: 10px 0 5px;
+  }
+  
+  form input {
+    width: 100%;
+    padding: 17px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 15px;
+    
+  }
+  
+  .submit-btn {
+    width: 50%;
+    padding: 10px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 30px;
+    font-size: 16px;
+    cursor: pointer;
+    margin-right: 10px;
+  }
+  .submit-btn2 {
+    width: 50%;
+    padding: 10px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 30px;
+    font-size: 16px;
+    cursor: pointer;
+  }
+  .submit-btn2:hover {
+    background-color: #45a049;
+  }
+  .buttons{
+    display: flex;
+    align-items: center;
+    
+  }
+  
+  .submit-btn:hover {
+    background-color: #45a049;
+  }
+  
+  .login-text {
+    text-align: center;
+    margin-top: 15px;
+  }
+  
+  .login-text a {
+    color: #007BFF;
+    text-decoration: none;
+  }
+  
+  .ai-assistant {
+    flex: 1;
+    padding: 40px;
+    text-align: center;
+    background: #f7f7f7;
+    margin-bottom: 20px;
+  }
+.logo2 {
+    width: 75px; /* Adjust the width of the logo */
+    height: auto; /* Maintain aspect ratio */
+    transform: translateY(-5px); /* Move the logo slightly upwards */
+  }
+  .welcome-message {
+    display:flex;
+    align-items: center;
+    margin-top: 120px; /* Adds space below the image */
+    font-size: 30px; /* Adjust font size */
+    font-weight: bold; /* Optional: make it bold */
+    color: #333; /* Adjust text color */
+  }
+  .inner-text{
+    margin-top: 10px; /* Adds space below the image */
+    font-size: 20px; /* Adjust font size */
+    font-weight: bold; /* Optional: make it bold */
+    color: #555555;
+  }
+  .inner-text:hover{
+    color:  #357ae8
+  }
+  .ai-image {
+    width: 350px;
+    height: 300px;
+    margin-bottom: 20px;
+  }
+  .logo-image{
+    width: 100px;
+    height: 100px;
+    margin-bottom: 100px;
+}
+  
+  .welcome-message {
+    
+    color: #555555;
+    text-weight: bold;
+  }
+  
+  @media (max-width: 768px) {
+    .container {
+      flex-direction: column;
+      width: 90%;
+    }
+  
+    .form-container, .ai-assistant {
+      flex: unset;
+      padding: 20px;
+    }
+  }
+  

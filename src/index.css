@@ -1,0 +1,230 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ── Global resets ──────────────────────────────────────────────────── */
+html {
+  overflow-x: hidden;
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  overflow-x: hidden;
+  -webkit-tap-highlight-color: transparent;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Prevent any element from causing horizontal scroll */
+* {
+  box-sizing: border-box;
+  min-width: 0;
+}
+
+img, video, svg {
+  max-width: 100%;
+  height: auto;
+}
+
+/* ── Smooth dark mode transitions ───────────────────────────────────── */
+*, *::before, *::after {
+  transition: background-color 0.2s ease, border-color 0.2s ease, color 0.15s ease;
+}
+
+/* ── Touch targets ≥ 44 × 44 px ────────────────────────────────────── */
+button, a, [role="button"], input[type="checkbox"], input[type="radio"] {
+  touch-action: manipulation;
+}
+
+/* Minimum tap target for small interactive elements */
+button:not([class*="h-"]):not([class*="w-"]),
+a:not([class*="h-"]):not([class*="w-"]) {
+  min-height: 44px;
+}
+
+/* ── Skeleton loader ────────────────────────────────────────────────── */
+.skeleton {
+  background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+  background-size: 200% 100%;
+  animation: skeleton-loading 1.5s infinite linear;
+}
+
+.dark .skeleton {
+  background: linear-gradient(90deg, #1e293b 25%, #334155 50%, #1e293b 75%);
+  background-size: 200% 100%;
+  animation: skeleton-loading 1.5s infinite linear;
+}
+
+@keyframes skeleton-loading {
+  0%   { background-position: -200% 0; }
+  100% { background-position:  200% 0; }
+}
+
+/* ── Animations ─────────────────────────────────────────────────────── */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0);   }
+}
+
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0);    }
+}
+
+.animate-fade-in  { animation: fadeIn  0.3s ease-out; }
+.animate-slide-up { animation: slideUp 0.4s ease-out; }
+
+/* ── React Calendar — mobile-first overrides ────────────────────────── */
+.react-calendar {
+  width: 100% !important;
+  max-width: 100% !important;
+  border: 1px solid #e5e7eb !important;
+  border-radius: 0.75rem !important;
+  font-family: inherit !important;
+  line-height: 1.5 !important;
+  background: #ffffff !important;
+  font-size: 0.875rem !important;
+  overflow: hidden;
+}
+
+.react-calendar__navigation {
+  height: 44px !important;
+  margin-bottom: 0.5rem !important;
+}
+
+.react-calendar__navigation button {
+  min-width: 44px !important;
+  height: 44px !important;
+  font-size: 0.875rem !important;
+  font-weight: 600 !important;
+  color: #374151 !important;
+  background: transparent !important;
+  border-radius: 0.5rem !important;
+}
+
+.react-calendar__navigation button:hover,
+.react-calendar__navigation button:focus {
+  background: #eff6ff !important;
+}
+
+.react-calendar__month-view__weekdays__weekday {
+  padding: 0.375rem 0.25rem !important;
+  text-align: center !important;
+  font-size: 0.7rem !important;
+  font-weight: 700 !important;
+  color: #6b7280 !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.05em !important;
+  text-decoration: none !important;
+}
+
+.react-calendar__month-view__weekdays__weekday abbr {
+  text-decoration: none !important;
+}
+
+.react-calendar__month-view__days {
+  gap: 0 !important;
+}
+
+.react-calendar__tile {
+  height: 40px !important;
+  max-width: 100% !important;
+  padding: 0.25rem 0.125rem !important;
+  text-align: center !important;
+  font-size: 0.8125rem !important;
+  border-radius: 0.5rem !important;
+  border: none !important;
+  color: #374151 !important;
+}
+
+@media (max-width: 380px) {
+  .react-calendar__tile {
+    height: 36px !important;
+    font-size: 0.75rem !important;
+  }
+}
+
+.react-calendar__tile:hover {
+  background: #eff6ff !important;
+  color: #2563eb !important;
+}
+
+.react-calendar__tile--active,
+.react-calendar__tile--active:hover {
+  background: #2563eb !important;
+  color: #ffffff !important;
+}
+
+.react-calendar__tile--now {
+  background: #dbeafe !important;
+  color: #1d4ed8 !important;
+  font-weight: 700 !important;
+}
+
+.react-calendar__tile:disabled {
+  background: transparent !important;
+  color: #d1d5db !important;
+  pointer-events: none !important;
+}
+
+/* Dark mode calendar */
+.dark .react-calendar {
+  background: #1e293b !important;
+  border-color: #334155 !important;
+  color: #f1f5f9 !important;
+}
+
+.dark .react-calendar__navigation button {
+  color: #f1f5f9 !important;
+}
+
+.dark .react-calendar__navigation button:hover {
+  background: #334155 !important;
+}
+
+.dark .react-calendar__month-view__weekdays__weekday {
+  color: #94a3b8 !important;
+}
+
+.dark .react-calendar__tile {
+  color: #f1f5f9 !important;
+}
+
+.dark .react-calendar__tile:hover {
+  background: #1e40af !important;
+  color: #ffffff !important;
+}
+
+.dark .react-calendar__tile--active {
+  background: #3b82f6 !important;
+  color: #ffffff !important;
+}
+
+.dark .react-calendar__tile--now {
+  background: #1d4ed8 !important;
+  color: #ffffff !important;
+}
+
+.dark .react-calendar__tile:disabled {
+  color: #475569 !important;
+}
+
+.dark .react-calendar__month-view__days__day--weekend {
+  color: #f87171 !important;
+}
+
+/* ── Scrollbar styling ──────────────────────────────────────────────── */
+::-webkit-scrollbar { width: 5px; height: 5px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 99px; }
+.dark ::-webkit-scrollbar-thumb { background: #475569; }
+
+/* ── iOS safe area ──────────────────────────────────────────────────── */
+.pb-safe {
+  padding-bottom: max(env(safe-area-inset-bottom, 0px), 0px);
+}
+
+.pb-safe-or-24 {
+  padding-bottom: max(env(safe-area-inset-bottom, 0px), 6rem);
+}

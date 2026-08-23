@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/png" href="/logo.png" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CareFlow — Healthcare Appointment & Follow-up Manager</title>
+    <meta name="description" content="CareFlow connects you with qualified healthcare professionals. Book appointments instantly and manage your follow-up care." />
+    <!-- Prevent dark-mode flash on load -->
+    <script>
+      (function() {
+        var saved = localStorage.getItem('theme');
+        var prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        if (saved === 'dark' || (!saved && prefersDark)) {
+          document.documentElement.classList.add('dark');
+        }
+      })();
+    </script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <!-- Google Identity Services — powers the "Connect Google Calendar" popup flow -->
+    <script src="https://accounts.google.com/gsi/client" async defer></script>
+    <script type="module" src="/src/main.jsx"></script>
+  </body>
+</html>

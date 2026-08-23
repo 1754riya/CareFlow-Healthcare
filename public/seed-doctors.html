@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Seed Doctors – MediChain</title>
+  <style>
+    body { font-family: system-ui, sans-serif; max-width: 600px; margin: 40px auto; padding: 0 20px; }
+    button { background: #2563eb; color: #fff; border: none; padding: 12px 24px; border-radius: 8px; font-size: 16px; cursor: pointer; margin-top: 16px; }
+    button:hover { background: #1d4ed8; }
+    #log { margin-top: 24px; background: #f1f5f9; border-radius: 8px; padding: 16px; font-size: 13px; line-height: 1.8; white-space: pre-wrap; max-height: 400px; overflow-y: auto; }
+    .ok  { color: #16a34a; }
+    .err { color: #dc2626; }
+  </style>
+</head>
+<body>
+  <h2>🏥 MediChain – Seed Test Doctors</h2>
+  <p>Click the button to add 8 sample doctors to Firestore. Safe to run multiple times (uses <code>setDoc</code> with fixed IDs).</p>
+  <button id="btn">Seed Doctors</button>
+  <div id="log">Ready…</div>
+
+  <script type="module">
+    import { initializeApp }  from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js';
+    import { getFirestore, setDoc, doc } from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js';
+
+    const app = initializeApp({
+      apiKey: "AIzaSyDsHshuYm3nBNisnarj5_f7SiY-qGGnD6Q",
+      authDomain: "jeevan-chakkar.firebaseapp.com",
+      projectId: "jeevan-chakkar",
+      storageBucket: "jeevan-chakkar.firebasestorage.app",
+      messagingSenderId: "269525505276",
+      appId: "1:269525505276:web:1492ed8a78081d8fe23379",
+    });
+    const db = getFirestore(app);
+
+    const DOCTORS = [
+      {
+        id: 'doc_001',
+        firstName: 'Priya', lastName: 'Sharma',
+        specialty: 'General Physician', location: 'Mumbai',
+        experience: 8, avgRating: 4.7, totalRatings: 124,
+        fee: 500, about: 'MBBS, MD. Experienced in primary care and chronic disease management.',
+        verified: true,
+        availability: { Monday: ['9:00 AM','10:00 AM','11:00 AM','3:00 PM','4:00 PM'], Wednesday: ['9:00 AM','10:00 AM','11:00 AM'], Friday: ['2:00 PM','3:00 PM','4:00 PM','5:00 PM'] },
+        image: 'https://randomuser.me/api/portraits/women/44.jpg',
+      },
+      {
+        id: 'doc_002',
+        firstName: 'Arjun', lastName: 'Mehta',
+        specialty: 'Cardiologist', location: 'Delhi',
+        experience: 14, avgRating: 4.9, totalRatings: 231,
+        fee: 1200, about: 'MBBS, MD Cardiology, DM. Specialist in interventional cardiology.',
+        verified: true,
+        availability: { Tuesday: ['9:00 AM','10:00 AM','11:00 AM'], Thursday: ['2:00 PM','3:00 PM','4:00 PM'] },
+        image: 'https://randomuser.me/api/portraits/men/32.jpg',
+      },
+      {
+        id: 'doc_003',
+        firstName: 'Kavita', lastName: 'Nair',
+        specialty: 'Dermatologist', location: 'Bengaluru',
+        experience: 6, avgRating: 4.5, totalRatings: 89,
+        fee: 800, about: 'MBBS, DVD. Expert in skin disorders, acne, and cosmetic dermatology.',
+        verified: true,
+        availability: { Monday: ['10:00 AM','11:00 AM','12:00 PM'], Wednesday: ['3:00 PM','4:00 PM','5:00 PM'], Saturday: ['9:00 AM','10:00 AM','11:00 AM'] },
+        image: 'https://randomuser.me/api/portraits/women/68.jpg',
+      },
+      {
+        id: 'doc_004',
+        firstName: 'Rohan', lastName: 'Verma',
+        specialty: 'Dentist', location: 'Pune',
+        experience: 5, avgRating: 4.3, totalRatings: 67,
+        fee: 600, about: 'BDS, MDS. Specialist in root canal, crowns, and orthodontics.',
+        verified: true,
+        availability: { Tuesday: ['9:00 AM','10:00 AM','11:00 AM','12:00 PM'], Thursday: ['2:00 PM','3:00 PM','4:00 PM'], Saturday: ['10:00 AM','11:00 AM'] },
+        image: 'https://randomuser.me/api/portraits/men/76.jpg',
+      },
+      {
+        id: 'doc_005',
+        firstName: 'Sneha', lastName: 'Iyer',
+        specialty: 'Gynologist', location: 'Chennai',
+        experience: 10, avgRating: 4.8, totalRatings: 156,
+        fee: 900, about: 'MBBS, MS Obstetrics & Gynaecology. Expert in high-risk pregnancy and laparoscopy.',
+        verified: true,
+        availability: { Monday: ['9:00 AM','10:00 AM','11:00 AM'], Wednesday: ['9:00 AM','10:00 AM','11:00 AM','12:00 PM'], Friday: ['3:00 PM','4:00 PM','5:00 PM'] },
+        image: 'https://randomuser.me/api/portraits/women/52.jpg',
+      },
+      {
+        id: 'doc_006',
+        firstName: 'Vikram', lastName: 'Singh',
+        specialty: 'Ophthalmologist', location: 'Hyderabad',
+        experience: 12, avgRating: 4.6, totalRatings: 103,
+        fee: 1000, about: 'MBBS, MS Ophthalmology. Specialist in cataract, retina, and LASIK.',
+        verified: true,
+        availability: { Tuesday: ['10:00 AM','11:00 AM','12:00 PM'], Thursday: ['10:00 AM','11:00 AM','12:00 PM','3:00 PM'], Saturday: ['9:00 AM','10:00 AM','11:00 AM'] },
+        image: 'https://randomuser.me/api/portraits/men/54.jpg',
+      },
+      {
+        id: 'doc_007',
+        firstName: 'Ananya', lastName: 'Rao',
+        specialty: 'Psychiatrist', location: 'Kolkata',
+        experience: 9, avgRating: 4.7, totalRatings: 78,
+        fee: 1100, about: 'MBBS, MD Psychiatry. Expert in anxiety, depression, and ADHD management.',
+        verified: false,
+        availability: { Monday: ['2:00 PM','3:00 PM','4:00 PM','5:00 PM'], Wednesday: ['2:00 PM','3:00 PM','4:00 PM'], Friday: ['10:00 AM','11:00 AM','12:00 PM'] },
+        image: 'https://randomuser.me/api/portraits/women/29.jpg',
+      },
+      {
+        id: 'doc_008',
+        firstName: 'Nikhil', lastName: 'Patel',
+        specialty: 'Orthopedist', location: 'Ahmedabad',
+        experience: 11, avgRating: 4.4, totalRatings: 91,
+        fee: 850, about: 'MBBS, MS Orthopaedics. Specialist in joint replacement and sports injuries.',
+        verified: true,
+        availability: { Tuesday: ['9:00 AM','10:00 AM','11:00 AM','12:00 PM'], Thursday: ['9:00 AM','10:00 AM','11:00 AM'], Saturday: ['11:00 AM','12:00 PM','2:00 PM'] },
+        image: 'https://randomuser.me/api/portraits/men/62.jpg',
+      },
+    ];
+
+    document.getElementById('btn').addEventListener('click', async () => {
+      const log = document.getElementById('log');
+      log.textContent = 'Seeding…\n';
+      for (const doctor of DOCTORS) {
+        try {
+          const { id, ...data } = doctor;
+          await setDoc(doc(db, 'doctors', id), data);
+          log.innerHTML += `<span class="ok">✓ Dr. ${doctor.firstName} ${doctor.lastName} (${doctor.specialty})</span>\n`;
+        } catch (e) {
+          log.innerHTML += `<span class="err">✗ ${doctor.firstName}: ${e.message}</span>\n`;
+        }
+      }
+      log.innerHTML += '\n<strong>Done!</strong> Refresh /search to see doctors.';
+    });
+  </script>
+</body>
+</html>
