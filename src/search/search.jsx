@@ -2,9 +2,10 @@ import React, { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import {
   collection, query as firestoreQuery,
-  where, getDocs, limit, startAfter,
+  where, getDocs, limit, startAfter, documentId,
 } from '@firebase/firestore';
 import { db } from '../firebase/config';
+import { CAREFLOW_DOCTOR_IDS } from '../config/careflowDoctors';
 import { SearchBar } from '../components/SearchBar';
 import Search from '../components/Search';
 import PageTransition from '../components/PageTransition';
@@ -115,7 +116,13 @@ const SearchPage = () => {
     }
   }, [location.search]);
 
-  /* ── Client-side filters ── */
+  /* ── Client-side filters ──
+   * Keyword and specialty matching happen here (not as Firestore `where`
+   * clauses) because the query below is scoped to CAREFLOW_DOCTOR_IDS via a
+   * documentId() 'in' filter, and Firestore can't combine that with an
+   * array-contains/equality filter on another field without extra composite
+   * indexes. The candidate set is always <= CAREFLOW_DOCTOR_IDS.length, so
+   * filtering in JS is cheap. */
   function applyClientFilters(list) {
     list = list.filter(d => d.active !== false);
     if (locationParam) {
@@ -123,10 +130,16 @@ const SearchPage = () => {
         d.location?.toLowerCase().includes(locationParam.toLowerCase())
       );
     }
-    if (queryParam && specialty !== 'All') {
+    if (queryParam) {
+      const q = queryParam.toLowerCase();
       list = list.filter(d =>
-        d.specialty?.toLowerCase().includes(specialty.toLowerCase())
+        d.searchKeywords?.some(k => k.includes(q)) ||
+        `${d.firstName ?? ''} ${d.lastName ?? ''}`.toLowerCase().includes(q) ||
+        d.specialty?.toLowerCase().includes(q)
       );
+    }
+    if (specialty !== 'All') {
+      list = list.filter(d => d.specialty === specialty);
     }
     if (experience) {
       list = list.filter(d => {
@@ -143,18 +156,12 @@ const SearchPage = () => {
     return list;
   }
 
-  /* ── Firestore query builder (unchanged) ── */
+  /* ── Firestore query builder ──
+   * CareFlow-only: always scoped to the fixed CAREFLOW_DOCTOR_IDS allow-list
+   * so the rest of the shared `doctors` collection is never read here. */
   function buildQuery(afterDoc = null) {
     const ref         = collection(db, 'doctors');
-    const constraints = [];
-
-    if (queryParam) {
-      constraints.push(
-        where('searchKeywords', 'array-contains', queryParam.toLowerCase())
-      );
-    } else if (specialty && specialty !== 'All') {
-      constraints.push(where('specialty', '==', specialty));
-    }
+    const constraints = [where(documentId(), 'in', CAREFLOW_DOCTOR_IDS)];
 
     if (afterDoc) constraints.push(startAfter(afterDoc));
     constraints.push(limit(PAGE_SIZE));
@@ -257,7 +264,7 @@ const SearchPage = () => {
               >
                 <div className="inline-flex items-center gap-2 bg-white/15 backdrop-blur-sm text-white/90 text-[11px] font-bold px-4 py-1.5 rounded-full border border-white/20 mb-5 shadow-sm">
                   <Sparkles className="w-3.5 h-3.5" />
-                  17,000+ Verified Doctors Across India
+                  5 Verified Doctors Across India
                 </div>
                 <h1 className="text-3xl md:text-4xl font-black text-white tracking-tight mb-2.5 leading-tight">
                   Find Your Perfect Doctor

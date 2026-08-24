@@ -1,6 +1,7 @@
 import { FieldValue } from 'firebase-admin/firestore';
 import { requireAuthenticatedUser, getAdminDb } from './lib/firebaseAdmin.js';
 import { getAvailableSlots, dateFromKey } from '../src/utils/slotGeneration.js';
+import { CAREFLOW_DOCTOR_IDS } from '../src/config/careflowDoctors.js';
 
 const DATE_KEY_RE = /^\d{4}-\d{2}-\d{2}$/;
 const HOLD_DURATION_MS = 5 * 60 * 1000;
@@ -39,6 +40,10 @@ export default async function handler(req, res) {
   }
   if (!DATE_KEY_RE.test(dateKey)) {
     res.status(400).json({ error: 'Invalid dateKey format, expected yyyy-MM-dd' });
+    return;
+  }
+  if (!CAREFLOW_DOCTOR_IDS.includes(doctorId)) {
+    res.status(404).json({ error: 'Doctor not found' });
     return;
   }
 

@@ -275,8 +275,8 @@ function AppointmentMockup() {
             <Stethoscope className="w-3.5 h-3.5 text-white" />
           </div>
           <div>
-            <p className="text-xs font-black text-gray-900 dark:text-white leading-none">17,000+</p>
-            <p className="text-[10px] text-gray-400 mt-0.5">Doctors</p>
+            <p className="text-xs font-black text-gray-900 dark:text-white leading-none">5</p>
+            <p className="text-[10px] text-gray-400 mt-0.5">Verified Doctors</p>
           </div>
         </motion.div>
       </motion.div>
@@ -288,7 +288,7 @@ function AppointmentMockup() {
    Static data
 ───────────────────────────────────────────────────────────────────── */
 const STATS = [
-  { icon: Stethoscope,  value: '17,000+',     suffix: '', label: 'Verified doctors', gradient: 'from-indigo-500 to-indigo-600', delay: 0    },
+  { icon: Stethoscope,  value: '5',           suffix: '', label: 'Verified doctors', gradient: 'from-indigo-500 to-indigo-600', delay: 0    },
   { icon: Award,        value: '20+',         suffix: '', label: 'Specialities covered', gradient: 'from-emerald-500 to-teal-600', delay: 0.08 },
   { icon: CalendarDays, value: 'Real-time',   suffix: '', label: 'Booking',          gradient: 'from-blue-500 to-cyan-500',     delay: 0.16 },
   { icon: Sparkles,     value: 'AI-Assisted', suffix: '', label: 'Care',             gradient: 'from-violet-500 to-purple-600', delay: 0.24 },
@@ -478,7 +478,7 @@ export default function App() {
                   <TrustBadge text="Free to book" />
                   <TrustBadge text="Verified doctors" />
                   <TrustBadge text="Instant confirmation" />
-                  <TrustBadge text="17,000+ doctors" />
+                  <TrustBadge text="5 verified doctors" />
                 </motion.div>
 
                 <motion.div
@@ -699,7 +699,7 @@ export default function App() {
                   </motion.div>
                 </div>
                 <div className="flex gap-6 text-center">
-                  {[['17K+', 'Doctors'], ['10K+', 'Patients'], ['20+', 'Specialties']].map(([n, l]) => (
+                  {[['5', 'Doctors'], ['10K+', 'Patients'], ['20+', 'Specialties']].map(([n, l]) => (
                     <div key={l}>
                       <p className="text-white font-black text-lg leading-none">{n}</p>
                       <p className="text-blue-200/70 text-[10px] font-medium mt-1">{l}</p>

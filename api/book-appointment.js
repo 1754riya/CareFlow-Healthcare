@@ -2,6 +2,7 @@ import { FieldValue } from 'firebase-admin/firestore';
 import { requireAuthenticatedUser, getAdminDb } from './lib/firebaseAdmin.js';
 import { getAvailableSlots, dateFromKey } from '../src/utils/slotGeneration.js';
 import { generateSymptomSummary } from './lib/gemini.js';
+import { CAREFLOW_DOCTOR_IDS } from '../src/config/careflowDoctors.js';
 
 const AI_SUMMARY_TIMEOUT_MS = 8000;
 
@@ -38,6 +39,10 @@ export default async function handler(req, res) {
   }
   if (!DATE_KEY_RE.test(dateKey)) {
     res.status(400).json({ error: 'Invalid dateKey format, expected yyyy-MM-dd' });
+    return;
+  }
+  if (!CAREFLOW_DOCTOR_IDS.includes(doctorId)) {
+    res.status(404).json({ error: 'Doctor not found' });
     return;
   }
 

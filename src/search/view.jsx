@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import { doc, getDoc } from '@firebase/firestore';
 import { db } from '../firebase/config';
+import { CAREFLOW_DOCTOR_IDS } from '../config/careflowDoctors';
 import { MapPin, Star, Award, Stethoscope, GraduationCap, Clock } from 'lucide-react';
 import AppointmentBooking from '../components/AppointmentBooking';
 import ReviewSystem from '../reviews/ReviewSystem';
@@ -20,6 +21,7 @@ export default function View() {
 
   useEffect(() => {
     if (!docid) { setError('No doctor ID provided.'); setLoading(false); return; }
+    if (!CAREFLOW_DOCTOR_IDS.includes(docid)) { setError('Doctor not found.'); setLoading(false); return; }
     getDoc(doc(db, 'doctors', docid))
       .then(snap => snap.exists() ? setDoctor({ id: docid, ...snap.data() }) : setError('Doctor not found.'))
       .catch(() => setError('Error fetching doctor details.'))
