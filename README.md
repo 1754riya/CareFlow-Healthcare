@@ -367,13 +367,6 @@ Once configured, a user connects from **Settings → Google Calendar** (or the d
 
 ---
 
-## Team
-
-| Name | GitHub |
-|------|--------|
-| Riya Mehta | [@1754riya](https://github.com/1754riya) |
-| Pranav Chaturvedi | [@pranavchaturvedi](https://github.com/pranavchaturvedi) |
-
 ## License
 
 MIT
