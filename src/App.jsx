@@ -3,10 +3,10 @@ import { Navigate, Link } from 'react-router-dom';
 import {
   motion, useInView, useMotionValue, useSpring,
 } from 'framer-motion';
-import { SearchBar }     from './components/SearchBar';
 import { TopSpecialties } from './components/TopSpecialties';
 import { AuthContext }   from './AuthContext';
 import PatientDashboard  from './patient-dashboard/PatientDashboard';
+import { CAREFLOW_DOCTORS } from './config/careflowDoctors';
 import {
   Shield, Clock, Star, HeartPulse, Stethoscope,
   ArrowRight, CheckCircle, Users, CalendarDays, Award, Sparkles,
@@ -465,7 +465,36 @@ export default function App() {
                   transition={{ duration: 0.5, delay: 0.2 }}
                   className="mb-7 max-w-xl mx-auto lg:mx-0"
                 >
-                  <SearchBar />
+                  <p className="text-[11px] font-black text-gray-400 dark:text-slate-500 uppercase tracking-widest mb-3">
+                    Meet our doctors
+                  </p>
+                  <div className="flex flex-wrap gap-2.5 justify-center lg:justify-start">
+                    {CAREFLOW_DOCTORS.map((doc, i) => (
+                      <motion.div
+                        key={doc.id}
+                        initial={{ opacity: 0, y: 10 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ delay: 0.26 + i * 0.05, duration: 0.4 }}
+                        whileHover={{ scale: 1.04, y: -2 }}
+                        whileTap={{ scale: 0.97 }}
+                      >
+                        <Link
+                          to={`/view?docid=${doc.id}`}
+                          className="flex items-center gap-2.5 bg-white dark:bg-slate-800/80 backdrop-blur-sm border border-gray-200/60 dark:border-slate-700/60 rounded-2xl pl-2 pr-3.5 py-2 shadow-sm hover:shadow-md hover:border-blue-300 dark:hover:border-blue-700 transition-all"
+                        >
+                          <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-blue-500 to-indigo-600 flex items-center justify-center text-white font-black text-xs shrink-0">
+                            {doc.firstName[0]}{doc.lastName[0]}
+                          </div>
+                          <div className="text-left">
+                            <p className="text-xs font-bold text-gray-900 dark:text-white leading-tight whitespace-nowrap">
+                              Dr. {doc.firstName} {doc.lastName}
+                            </p>
+                            <p className="text-[10px] text-gray-400 dark:text-slate-500">{doc.specialty}</p>
+                          </div>
+                        </Link>
+                      </motion.div>
+                    ))}
+                  </div>
                 </motion.div>
 
                 <motion.div
@@ -499,7 +528,7 @@ export default function App() {
                       to="/search"
                       className="inline-flex items-center justify-center gap-2 bg-white dark:bg-slate-800 text-gray-800 dark:text-white font-bold px-7 py-3.5 rounded-2xl border border-gray-200 dark:border-slate-700 shadow-sm hover:shadow-md hover:border-blue-300 dark:hover:border-blue-700 transition-all text-sm"
                     >
-                      Meet Our Doctors
+                      View All Doctors
                     </Link>
                   </motion.div>
                 </motion.div>
