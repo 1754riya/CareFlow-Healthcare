@@ -289,7 +289,7 @@ function AppointmentMockup() {
 ───────────────────────────────────────────────────────────────────── */
 const STATS = [
   { icon: Stethoscope,  value: '5',           suffix: '', label: 'Verified doctors', gradient: 'from-indigo-500 to-indigo-600', delay: 0    },
-  { icon: Award,        value: '20+',         suffix: '', label: 'Specialities covered', gradient: 'from-emerald-500 to-teal-600', delay: 0.08 },
+  { icon: Award,        value: '4',           suffix: '', label: 'Specialities covered', gradient: 'from-emerald-500 to-teal-600', delay: 0.08 },
   { icon: CalendarDays, value: 'Real-time',   suffix: '', label: 'Booking',          gradient: 'from-blue-500 to-cyan-500',     delay: 0.16 },
   { icon: Sparkles,     value: 'AI-Assisted', suffix: '', label: 'Care',             gradient: 'from-violet-500 to-purple-600', delay: 0.24 },
 ];
@@ -304,30 +304,30 @@ const FEATURES = [
 
 const STEPS = [
   { num: '1', title: 'Create Account',   desc: 'Sign up free as a patient. Takes under a minute with Google or email.',                  color: 'bg-gradient-to-br from-blue-500 to-blue-600',    delay: 0    },
-  { num: '2', title: 'Find Your Doctor', desc: 'Search by name, specialty, or location. Read reviews and check real-time availability.', color: 'bg-gradient-to-br from-indigo-500 to-violet-600', delay: 0.12 },
+  { num: '2', title: 'Find Your Doctor', desc: 'Search our doctors by name or specialty. Read reviews and check real-time availability.', color: 'bg-gradient-to-br from-indigo-500 to-violet-600', delay: 0.12 },
   { num: '3', title: 'Book & Attend',    desc: 'Pick a time slot and confirm. Get instant updates on your appointment status.',          color: 'bg-gradient-to-br from-emerald-500 to-teal-600',  delay: 0.24 },
 ];
 
 const TESTIMONIALS = [
   {
-    name: 'Priya Sharma', city: 'Mumbai', avatar: 'P',
+    name: 'Priya Sharma', city: 'Mohali', avatar: 'P',
     gradient: 'from-blue-500 to-indigo-600',
-    rating: 5, specialty: 'Cardiologist visit',
-    review: 'Found the perfect cardiologist in minutes. The booking was seamless and the doctor was exactly as described in the reviews. Highly recommend CareFlow!',
+    rating: 5, specialty: 'Nephrology visit',
+    review: 'Found the right specialist in minutes. The booking was seamless and Dr. Sakhuja was exactly as described in the reviews. Highly recommend this clinic!',
     delay: 0,
   },
   {
-    name: 'Rahul Verma', city: 'Delhi', avatar: 'R',
+    name: 'Rahul Verma', city: 'Mohali', avatar: 'R',
     gradient: 'from-violet-500 to-purple-600',
     rating: 5, specialty: 'Follow-up care',
     review: 'The follow-up reminders meant I never missed a check-up. Booking and tracking my appointments has never been this easy.',
     delay: 0.1,
   },
   {
-    name: 'Anita Nair', city: 'Bengaluru', avatar: 'A',
+    name: 'Anita Nair', city: 'Mohali', avatar: 'A',
     gradient: 'from-emerald-500 to-teal-600',
     rating: 5, specialty: 'Dermatologist visit',
-    review: 'Booking was instant, reminders were on time, and the reviews are 100% genuine. This is exactly how healthcare should work in India.',
+    review: 'Booking was instant, reminders were on time, and the reviews are genuine. This is exactly how a neighborhood clinic should work.',
     delay: 0.2,
   },
 ];
@@ -434,7 +434,7 @@ export default function App() {
                   className="inline-flex items-center gap-2 bg-gradient-to-r from-blue-100 to-indigo-100 dark:from-blue-900/40 dark:to-indigo-900/40 text-blue-700 dark:text-blue-300 text-xs font-bold px-4 py-2 rounded-full mb-7 border border-blue-200/60 dark:border-blue-800/60 shadow-sm"
                 >
                   <Sparkles className="w-3.5 h-3.5" />
-                  India's Smart Healthcare Platform
+                  Your Trusted Local Clinic
                   <span className="w-1.5 h-1.5 bg-blue-500 rounded-full animate-pulse" />
                 </motion.div>
 
@@ -444,11 +444,10 @@ export default function App() {
                   transition={{ duration: 0.65, delay: 0.07, ease: [0.22, 1, 0.36, 1] }}
                   className="text-[2.6rem] md:text-5xl lg:text-[3.4rem] font-black text-gray-900 dark:text-white leading-[1.1] mb-6 tracking-tight"
                 >
-                  Find & book the{' '}
+                  Book your appointment with{' '}
                   <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 via-indigo-600 to-violet-600">
-                    best doctors
+                    our trusted doctors
                   </span>
-                  <br className="hidden lg:block" /> near you
                 </motion.h1>
 
                 <motion.p
@@ -457,7 +456,7 @@ export default function App() {
                   transition={{ duration: 0.5, delay: 0.13 }}
                   className="text-base md:text-lg text-gray-600 dark:text-gray-300 mb-8 max-w-lg mx-auto lg:mx-0 leading-relaxed"
                 >
-                  Connect with verified healthcare professionals. Book instantly, manage records, and stay on top of every follow-up — all in one place.
+                  Meet our small team of verified doctors. Book instantly, manage records, and stay on top of every follow-up — all in one place.
                 </motion.p>
 
                 <motion.div
@@ -500,7 +499,7 @@ export default function App() {
                       to="/search"
                       className="inline-flex items-center justify-center gap-2 bg-white dark:bg-slate-800 text-gray-800 dark:text-white font-bold px-7 py-3.5 rounded-2xl border border-gray-200 dark:border-slate-700 shadow-sm hover:shadow-md hover:border-blue-300 dark:hover:border-blue-700 transition-all text-sm"
                     >
-                      Browse Doctors
+                      Meet Our Doctors
                     </Link>
                   </motion.div>
                 </motion.div>
@@ -548,7 +547,7 @@ export default function App() {
           <SectionHeading
             eyebrow="Specialties"
             title="Browse by Specialty"
-            subtitle="Find the right specialist for your health needs across 20+ medical categories."
+            subtitle="Find the right specialist for your health needs among our clinic's doctors."
           />
           <TopSpecialties />
         </section>
@@ -609,8 +608,8 @@ export default function App() {
           <div className="relative max-w-6xl mx-auto px-4">
             <SectionHeading
               eyebrow="Patient Stories"
-              title="Trusted by thousands of patients"
-              subtitle="Real experiences from real patients across India."
+              title="Trusted by our patients"
+              subtitle="Real experiences from patients at our clinic."
               eyebrowColor="text-emerald-600 dark:text-emerald-400"
             />
 
@@ -627,9 +626,9 @@ export default function App() {
               className="mt-14 flex flex-wrap items-center justify-center gap-8 py-7 border-t border-gray-100 dark:border-slate-800"
             >
               {[
-                { icon: Users,       text: '10,000+ Happy Patients' },
+                { icon: Users,       text: 'Personalized, unhurried care' },
                 { icon: Star,        text: '4.8 / 5 Average Rating' },
-                { icon: MapPin,      text: 'Available Across India' },
+                { icon: MapPin,      text: 'Mohali, Punjab' },
                 { icon: CheckCircle, text: '100% Verified Doctors'  },
               ].map(({ icon: Icon, text }) => (
                 <div key={text} className="flex items-center gap-2.5 text-sm text-gray-500 dark:text-gray-400 font-medium">
@@ -671,10 +670,10 @@ export default function App() {
                   </div>
                 </motion.div>
                 <h2 className="text-2xl md:text-3xl font-black text-white mb-4 tracking-tight leading-tight">
-                  Are you a healthcare<br />professional?
+                  Are you a doctor<br />joining our clinic?
                 </h2>
                 <p className="text-blue-100/80 text-sm leading-relaxed max-w-lg">
-                  Join CareFlow to manage appointments, showcase your expertise, and connect with thousands of patients searching for your specialty.
+                  Manage your appointments, showcase your expertise, and connect with your patients — all in one place.
                 </p>
               </div>
 
@@ -699,7 +698,7 @@ export default function App() {
                   </motion.div>
                 </div>
                 <div className="flex gap-6 text-center">
-                  {[['5', 'Doctors'], ['10K+', 'Patients'], ['20+', 'Specialties']].map(([n, l]) => (
+                  {[['5', 'Doctors'], ['4', 'Specialties']].map(([n, l]) => (
                     <div key={l}>
                       <p className="text-white font-black text-lg leading-none">{n}</p>
                       <p className="text-blue-200/70 text-[10px] font-medium mt-1">{l}</p>
@@ -731,7 +730,7 @@ export default function App() {
                   </span>
                 </div>
                 <p className="text-sm text-gray-400 dark:text-slate-500 leading-relaxed">
-                  India's trusted healthcare appointment & follow-up manager. Find verified doctors, book appointments instantly, and stay on top of your care.
+                  Your trusted local clinic's appointment & follow-up manager. Meet our verified doctors, book appointments instantly, and stay on top of your care.
                 </p>
               </div>
 

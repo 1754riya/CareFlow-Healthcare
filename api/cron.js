@@ -1,9 +1,9 @@
 import { FieldValue } from 'firebase-admin/firestore';
-import { getAdminDb } from './lib/firebaseAdmin.js';
-import { sendMail } from './lib/mailer.js';
-import { MAX_EMAIL_ATTEMPTS, sendTrackedEmail } from './lib/emailQueue.js';
-import { toEmailAppointmentData } from './lib/appointmentAccess.js';
-import { patientReminderEmail, doctorReminderEmail } from './lib/appointmentEmailTemplate.js';
+import { getAdminDb } from './_lib/firebaseAdmin.js';
+import { sendMail } from './_lib/mailer.js';
+import { MAX_EMAIL_ATTEMPTS, sendTrackedEmail } from './_lib/emailQueue.js';
+import { toEmailAppointmentData } from './_lib/appointmentAccess.js';
+import { patientReminderEmail, doctorReminderEmail } from './_lib/appointmentEmailTemplate.js';
 import { isReminderDueToday, isReminderExpired, buildReminderMessage } from '../src/utils/medicationReminders.js';
 import { toDateKey } from '../src/utils/slotGeneration.js';
 

@@ -1,7 +1,7 @@
 import { FieldValue } from 'firebase-admin/firestore';
-import { requireAdmin } from './lib/requireAdmin.js';
-import { getAdminAuth, getAdminDb } from './lib/firebaseAdmin.js';
-import { cancelAppointmentsForDoctorLeave } from './lib/doctorLeave.js';
+import { requireAdmin } from './_lib/requireAdmin.js';
+import { getAdminAuth, getAdminDb } from './_lib/firebaseAdmin.js';
+import { cancelAppointmentsForDoctorLeave } from './_lib/doctorLeave.js';
 
 const generateSearchKeywords = (name, specialty) => {
   const words = [...name.toLowerCase().split(' '), ...specialty.toLowerCase().split(' ')];

@@ -1,5 +1,5 @@
 /**
- * In-memory stand-in for api/lib/firebaseAdmin.js, used only by
+ * In-memory stand-in for api/_lib/firebaseAdmin.js, used only by
  * scripts/testBookingConcurrency.js (via a module-resolution loader hook —
  * see firebaseAdminLoader.mjs) so the REAL, unmodified api/book-appointment.js
  * handler can be exercised without a live Firestore project.

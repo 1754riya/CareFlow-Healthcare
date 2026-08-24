@@ -1,5 +1,5 @@
 /**
- * In-memory stand-in for api/lib/googleCalendar.js, used by test scripts (via
+ * In-memory stand-in for api/_lib/googleCalendar.js, used by test scripts (via
  * the module-resolution loader hook in firebaseAdminLoader.mjs) so the REAL,
  * unmodified api/calendar-events.js (create/update/delete actions) and
  * api/reschedule-appointment.js handlers can be exercised without ever

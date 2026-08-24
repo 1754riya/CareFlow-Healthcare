@@ -1,5 +1,5 @@
 import { FieldValue } from 'firebase-admin/firestore';
-import { requireAuthenticatedUser, getAdminDb } from './lib/firebaseAdmin.js';
+import { requireAuthenticatedUser, getAdminDb } from './_lib/firebaseAdmin.js';
 import { getAvailableSlots, dateFromKey } from '../src/utils/slotGeneration.js';
 
 const DATE_KEY_RE = /^\d{4}-\d{2}-\d{2}$/;

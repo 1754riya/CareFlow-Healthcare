@@ -1,6 +1,6 @@
-import { requireAuthenticatedUser } from './lib/firebaseAdmin.js';
-import { loadAuthorizedAppointment, toCalendarAppointmentData } from './lib/appointmentAccess.js';
-import { createEventForUser, updateEventForUser, deleteEventForUser } from './lib/googleCalendar.js';
+import { requireAuthenticatedUser } from './_lib/firebaseAdmin.js';
+import { loadAuthorizedAppointment, toCalendarAppointmentData } from './_lib/appointmentAccess.js';
+import { createEventForUser, updateEventForUser, deleteEventForUser } from './_lib/googleCalendar.js';
 
 /**
  * Consolidated Google Calendar event-sync endpoint — combines the former

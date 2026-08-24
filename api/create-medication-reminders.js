@@ -1,6 +1,6 @@
 import { FieldValue } from 'firebase-admin/firestore';
-import { requireAuthenticatedUser, getAdminDb } from './lib/firebaseAdmin.js';
-import { loadAuthorizedAppointment } from './lib/appointmentAccess.js';
+import { requireAuthenticatedUser, getAdminDb } from './_lib/firebaseAdmin.js';
+import { loadAuthorizedAppointment } from './_lib/appointmentAccess.js';
 import { buildReminderSchedule } from '../src/utils/medicationReminders.js';
 import { toDateKey } from '../src/utils/slotGeneration.js';
 

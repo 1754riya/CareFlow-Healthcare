@@ -55,7 +55,7 @@ A full-stack healthcare platform connecting patients with doctors. Built with Re
 │   ├── admin/            # Admin-only doctor management endpoints
 │   ├── auth/google/       # Google Calendar OAuth exchange/status/disconnect
 │   ├── cron/              # Scheduled jobs (reminders, email retry)
-│   └── lib/               # Shared server-side helpers (Firebase Admin, Gemini, mailer, Calendar...)
+│   └── _lib/              # Shared server-side helpers (Firebase Admin, Gemini, mailer, Calendar...) — underscore-prefixed so Vercel's builder doesn't count these as separate Serverless Functions
 ├── src/
 │   ├── admin-dashboard/  # Admin Dashboard UI
 │   ├── appointments/     # Patient appointment management
@@ -69,7 +69,6 @@ A full-stack healthcare platform connecting patients with doctors. Built with Re
 │   ├── utils/             # Client-side helpers (booking, slot generation, calendar sync...)
 │   └── firebase/config.js # Firebase client SDK initialization
 ├── scripts/              # Node test suites + admin CLI (see "Build and test commands")
-├── doctor.json            # Seed dataset of ~17,600 doctor records
 └── vercel.json             # Rewrites + Cron job schedule
 ```
 
@@ -159,7 +158,7 @@ node scripts/grantAdmin.js someone@example.com [password]
 
 ## 3. API Documentation
 
-All endpoints live under `api/` as Vercel Serverless Functions. Unless noted, endpoints require a Firebase ID token in `Authorization: Bearer <token>`, verified via `requireAuthenticatedUser` (`api/lib/firebaseAdmin.js`).
+All endpoints live under `api/` as Vercel Serverless Functions. Unless noted, endpoints require a Firebase ID token in `Authorization: Bearer <token>`, verified via `requireAuthenticatedUser` (`api/_lib/firebaseAdmin.js`).
 
 ### Booking & Scheduling
 
@@ -249,14 +248,14 @@ One doc per prescribed medicine with a parseable frequency and duration, created
 - `appointmentId`, `patientId`, `doctorId`, `medicine`, `dosage`, `instructions`, `frequency`, `timesPerDay`, `duration`, `durationDays`, `startDate`, `endDate`, `status` (`active` | `completed`), `lastSentDate`, `createdAt`
 
 ### `emailQueue/{id}`
-Written by `api/lib/emailQueue.js` when an email send fails; retried by the daily cron.
+Written by `api/_lib/emailQueue.js` when an email send fails; retried by the daily cron.
 - `type`, `to`, `subject`, `html`, `appointmentId`, `recipientRole`, `status` (`pending` | `sent` | `failed`), `attempts`, `lastError`, `createdAt`, `sentAt`
 
 ### `notifications/{id}`
 - `userId`, `message`, `type`, `appointmentId`, `read`, `createdAt`
 
 ### `googleCalendarTokens/{uid}`
-One doc per user who has connected Google Calendar (`api/lib/googleCalendar.js`).
+One doc per user who has connected Google Calendar (`api/_lib/googleCalendar.js`).
 - `refreshToken`, `scope`, `connectedAt`, `updatedAt`
 
 ### `admins/{uid}`
@@ -267,7 +266,7 @@ Existence of a doc here (not a field on the user's own record) is what grants ad
 
 ## 5. LLM Prompts
 
-Both prompts are built and called in `api/lib/gemini.js`, using the `gemini-3.6-flash` model with a structured `responseSchema` (JSON output). Both are best-effort: on any failure (missing API key, network error, malformed response) the caller catches the error and proceeds without the summary — booking and visit completion are never blocked by the AI call.
+Both prompts are built and called in `api/_lib/gemini.js`, using the `gemini-3.6-flash` model with a structured `responseSchema` (JSON output). Both are best-effort: on any failure (missing API key, network error, malformed response) the caller catches the error and proceeds without the summary — booking and visit completion are never blocked by the AI call.
 
 ### AI pre-visit symptom summary
 Called from `api/book-appointment.js` right after an appointment is created.
@@ -313,7 +312,7 @@ Follow-up Instructions: {followUpInstructions}
 
 ## 6. Google Calendar Setup
 
-CareFlow uses a popup-based OAuth flow (Google Identity Services `initCodeClient`) to let a patient or doctor connect their own Google Calendar; appointments are then created/updated/deleted as events on their calendar server-side (`api/lib/googleCalendar.js`).
+CareFlow uses a popup-based OAuth flow (Google Identity Services `initCodeClient`) to let a patient or doctor connect their own Google Calendar; appointments are then created/updated/deleted as events on their calendar server-side (`api/_lib/googleCalendar.js`).
 
 ### 1. Create a Google Cloud project
 Go to the [Google Cloud Console](https://console.cloud.google.com) → create a new project (or select an existing one).
@@ -352,7 +351,7 @@ No **Authorized redirect URI** is needed — the code exchange uses Google Ident
 | `GOOGLE_OAUTH_CLIENT_ID` | The **same** Client ID | Server (`.env` / Vercel) |
 | `GOOGLE_OAUTH_CLIENT_SECRET` | The Client Secret | Server only |
 
-`GOOGLE_OAUTH_CLIENT_SECRET` must **never** be prefixed with `VITE_` and must never be referenced from any file under `src/` — Vite inlines every `VITE_`-prefixed variable into the client bundle, so anything with that prefix ships to the browser. It is read only in `api/lib/googleCalendar.js`, server-side.
+`GOOGLE_OAUTH_CLIENT_SECRET` must **never** be prefixed with `VITE_` and must never be referenced from any file under `src/` — Vite inlines every `VITE_`-prefixed variable into the client bundle, so anything with that prefix ships to the browser. It is read only in `api/_lib/googleCalendar.js`, server-side.
 
 ### 8. Connecting Google Calendar from CareFlow
 Once configured, a user connects from **Settings → Google Calendar** (or the doctor dashboard's equivalent panel, via `src/components/ConnectGoogleCalendar.jsx`):

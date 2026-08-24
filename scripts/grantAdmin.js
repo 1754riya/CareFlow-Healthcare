@@ -15,7 +15,7 @@
  * (min 6 chars) as the second argument to create one. If the account
  * already exists (e.g. they signed up as a patient), omit it.
  */
-import { getAdminAuth, getAdminDb } from '../api/lib/firebaseAdmin.js';
+import { getAdminAuth, getAdminDb } from '../api/_lib/firebaseAdmin.js';
 import { FieldValue } from 'firebase-admin/firestore';
 
 async function main() {

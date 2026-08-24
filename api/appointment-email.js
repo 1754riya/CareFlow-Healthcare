@@ -1,16 +1,16 @@
-import { requireAuthenticatedUser, getAdminDb } from './lib/firebaseAdmin.js';
-import { loadAuthorizedAppointment, toEmailAppointmentData } from './lib/appointmentAccess.js';
-import { sendMail } from './lib/mailer.js';
+import { requireAuthenticatedUser, getAdminDb } from './_lib/firebaseAdmin.js';
+import { loadAuthorizedAppointment, toEmailAppointmentData } from './_lib/appointmentAccess.js';
+import { sendMail } from './_lib/mailer.js';
 import {
   patientConfirmationEmail, doctorNotificationEmail,
   patientCancellationEmail, doctorCancellationEmail,
-} from './lib/appointmentEmailTemplate.js';
-import { sendTrackedEmail } from './lib/emailQueue.js';
+} from './_lib/appointmentEmailTemplate.js';
+import { sendTrackedEmail } from './_lib/emailQueue.js';
 
 // doctorEmail is intentionally NOT required for the confirmation email —
-// many doctor records (bulk-imported from doctor.json) have no email on
-// file, and that must never block the patient's own confirmation, which
-// always has a real address (their login email).
+// doctor records don't always have an email on file, and that must never
+// block the patient's own confirmation, which always has a real address
+// (their login email).
 const CONFIRMATION_REQUIRED_FIELDS = ['patientName', 'patientEmail', 'doctorName', 'date', 'timeSlot'];
 
 /**

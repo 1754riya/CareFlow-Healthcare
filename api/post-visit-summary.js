@@ -1,6 +1,6 @@
-import { requireAuthenticatedUser } from './lib/firebaseAdmin.js';
-import { loadAuthorizedAppointment } from './lib/appointmentAccess.js';
-import { generatePostVisitSummary } from './lib/gemini.js';
+import { requireAuthenticatedUser } from './_lib/firebaseAdmin.js';
+import { loadAuthorizedAppointment } from './_lib/appointmentAccess.js';
+import { generatePostVisitSummary } from './_lib/gemini.js';
 
 const SUMMARY_TIMEOUT_MS = 8000;
 

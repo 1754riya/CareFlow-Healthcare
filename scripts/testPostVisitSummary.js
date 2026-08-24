@@ -4,7 +4,7 @@
  * scripts/test-support/), covering both a successful and a failed Gemini
  * response. Real GEMINI_API_KEY is read from .env directly (not via
  * --env-file) so the failure case can run first, before any key is present
- * in process.env — getClient() in api/lib/gemini.js only caches a client
+ * in process.env — getClient() in api/_lib/gemini.js only caches a client
  * after a successful call, so ordering failure-then-success in one process
  * is safe and avoids needing two separate runs.
  *

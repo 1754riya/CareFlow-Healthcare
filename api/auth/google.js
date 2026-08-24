@@ -1,8 +1,8 @@
-import { requireAuthenticatedUser } from '../lib/firebaseAdmin.js';
+import { requireAuthenticatedUser } from '../_lib/firebaseAdmin.js';
 import {
   exchangeCodeForTokens, saveUserCalendarTokens,
   getUserCalendarConnection, removeUserCalendarTokens,
-} from '../lib/googleCalendar.js';
+} from '../_lib/googleCalendar.js';
 
 /**
  * Consolidated Google Calendar OAuth endpoint — combines the former

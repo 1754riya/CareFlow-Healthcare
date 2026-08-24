@@ -1,4 +1,4 @@
-import { requireAuthenticatedUser, getAdminDb } from './lib/firebaseAdmin.js';
+import { requireAuthenticatedUser, getAdminDb } from './_lib/firebaseAdmin.js';
 
 /**
  * Best-effort release of a hold the caller created — called when the

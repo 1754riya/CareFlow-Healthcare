@@ -1,7 +1,7 @@
 import { FieldValue } from 'firebase-admin/firestore';
-import { requireAuthenticatedUser, getAdminDb } from './lib/firebaseAdmin.js';
+import { requireAuthenticatedUser, getAdminDb } from './_lib/firebaseAdmin.js';
 import { getAvailableSlots, dateFromKey } from '../src/utils/slotGeneration.js';
-import { generateSymptomSummary } from './lib/gemini.js';
+import { generateSymptomSummary } from './_lib/gemini.js';
 import { CAREFLOW_DOCTOR_IDS } from '../src/config/careflowDoctors.js';
 
 const AI_SUMMARY_TIMEOUT_MS = 8000;

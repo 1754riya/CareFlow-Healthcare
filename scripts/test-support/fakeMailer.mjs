@@ -1,8 +1,8 @@
 /**
- * In-memory stand-in for api/lib/mailer.js, used by test scripts (via the
+ * In-memory stand-in for api/_lib/mailer.js, used by test scripts (via the
  * module-resolution loader hook in firebaseAdminLoader.mjs) so REAL,
  * unmodified handlers that send email (api/appointment-email.js's
- * cancellation action, api/cron.js's reminder/retry jobs, api/lib/emailQueue.js)
+ * cancellation action, api/cron.js's reminder/retry jobs, api/_lib/emailQueue.js)
  * can be exercised without ever hitting real SMTP.
  */
 

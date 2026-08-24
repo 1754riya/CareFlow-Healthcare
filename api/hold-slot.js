@@ -1,5 +1,5 @@
 import { FieldValue } from 'firebase-admin/firestore';
-import { requireAuthenticatedUser, getAdminDb } from './lib/firebaseAdmin.js';
+import { requireAuthenticatedUser, getAdminDb } from './_lib/firebaseAdmin.js';
 import { getAvailableSlots, dateFromKey } from '../src/utils/slotGeneration.js';
 import { CAREFLOW_DOCTOR_IDS } from '../src/config/careflowDoctors.js';
 

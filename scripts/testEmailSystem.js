@@ -1,7 +1,7 @@
 /**
  * Exercises the REAL, unmodified email-related handlers —
  * api/send-cancellation-email.js, api/cron/send-appointment-reminders.js,
- * api/cron/retry-failed-emails.js, and api/lib/emailQueue.js — against the
+ * api/cron/retry-failed-emails.js, and api/_lib/emailQueue.js — against the
  * in-memory Firestore fake and an in-memory mailer fake (see
  * scripts/test-support/), so none of this ever touches a live Firebase
  * project or a real SMTP server. api/send-appointment-confirmation.js
