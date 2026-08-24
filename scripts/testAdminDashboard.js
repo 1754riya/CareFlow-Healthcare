@@ -12,8 +12,14 @@ import assert from 'node:assert/strict';
 register('./test-support/firebaseAdminLoader.mjs', import.meta.url);
 
 const { __fakeDb, __reset: resetDb } = await import('./test-support/fakeFirebaseAdmin.mjs');
-const { default: createDoctorHandler } = await import('../api/admin/create-doctor.js');
-const { default: updateDoctorHandler } = await import('../api/admin/update-doctor.js');
+// api/admin/create-doctor.js and api/admin/update-doctor.js were
+// consolidated (Vercel Hobby plan's 12-function limit) into api/admin.js,
+// routed via a ?action= query param that vercel.json's rewrites supply in
+// production. These wrappers reproduce that dispatch for the real,
+// unmodified consolidated handler.
+const { default: adminHandler } = await import('../api/admin.js');
+const createDoctorHandler = (req, res) => adminHandler({ ...req, query: { action: 'create-doctor' } }, res);
+const updateDoctorHandler = (req, res) => adminHandler({ ...req, query: { action: 'update-doctor' } }, res);
 
 let passed = 0;
 let failed = 0;

@@ -17,9 +17,15 @@ register('./test-support/firebaseAdminLoader.mjs', import.meta.url);
 const { __fakeDb, __reset: resetDb } = await import('./test-support/fakeFirebaseAdmin.mjs');
 const gcal = await import('./test-support/fakeGoogleCalendar.mjs');
 const { default: bookHandler } = await import('../api/book-appointment.js');
-const { default: createEventsHandler } = await import('../api/create-calendar-events.js');
-const { default: updateEventsHandler } = await import('../api/update-calendar-events.js');
-const { default: deleteEventsHandler } = await import('../api/delete-calendar-events.js');
+// api/create-calendar-events.js, api/update-calendar-events.js, and
+// api/delete-calendar-events.js were consolidated (Vercel Hobby plan's
+// 12-function limit) into api/calendar-events.js, routed via a ?action=
+// query param that vercel.json's rewrites supply in production. These
+// wrappers reproduce that dispatch for the real, unmodified consolidated handler.
+const { default: calendarEventsHandler } = await import('../api/calendar-events.js');
+const createEventsHandler = (req, res) => calendarEventsHandler({ ...req, query: { action: 'create' } }, res);
+const updateEventsHandler = (req, res) => calendarEventsHandler({ ...req, query: { action: 'update' } }, res);
+const deleteEventsHandler = (req, res) => calendarEventsHandler({ ...req, query: { action: 'delete' } }, res);
 const { default: rescheduleHandler } = await import('../api/reschedule-appointment.js');
 
 let passed = 0;

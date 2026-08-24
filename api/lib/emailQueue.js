@@ -7,7 +7,7 @@ export const MAX_EMAIL_ATTEMPTS = 5;
 /**
  * Sends an email via the existing mailer.sendMail() (unchanged) and, if it
  * fails, records it in the `emailQueue` Firestore collection so the daily
- * retry cron (api/cron/retry-failed-emails.js) can pick it up later.
+ * retry cron (api/cron.js's retry-failed-emails job) can pick it up later.
  *
  * Never throws — a failure here is recorded, not propagated, so nothing
  * that triggers an email (appointment cancellation, a reminder sweep) can

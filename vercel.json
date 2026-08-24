@@ -1,5 +1,16 @@
 {
-  "rewrites": [{ "source": "/((?!api/).*)", "destination": "/index.html" }],
+  "rewrites": [
+    { "source": "/api/auth/google/:action", "destination": "/api/auth/google?action=:action" },
+    { "source": "/api/create-calendar-events", "destination": "/api/calendar-events?action=create" },
+    { "source": "/api/update-calendar-events", "destination": "/api/calendar-events?action=update" },
+    { "source": "/api/delete-calendar-events", "destination": "/api/calendar-events?action=delete" },
+    { "source": "/api/admin/create-doctor", "destination": "/api/admin?action=create-doctor" },
+    { "source": "/api/admin/update-doctor", "destination": "/api/admin?action=update-doctor" },
+    { "source": "/api/send-appointment-confirmation", "destination": "/api/appointment-email?action=confirmation" },
+    { "source": "/api/send-cancellation-email", "destination": "/api/appointment-email?action=cancellation" },
+    { "source": "/api/cron/:job", "destination": "/api/cron?job=:job" },
+    { "source": "/((?!api/).*)", "destination": "/index.html" }
+  ],
   "crons": [
     { "path": "/api/cron/send-medication-reminders", "schedule": "0 8 * * *" },
     { "path": "/api/cron/send-appointment-reminders", "schedule": "0 9 * * *" },

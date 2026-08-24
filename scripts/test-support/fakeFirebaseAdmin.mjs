@@ -191,7 +191,8 @@ export function __reset() { __fakeDb.reset(); __resetAuth(); }
 export function getAdminDb() { return __fakeDb; }
 
 // Separate from __fakeDb (Firestore) — mirrors Firebase Auth being its own
-// system in real Firebase. Only tracks what api/admin/create-doctor.js needs.
+// system in real Firebase. Only tracks what api/admin.js's create-doctor
+// action needs.
 const __fakeAuthUsersByEmail = new Map();
 let __fakeAuthUidCounter = 0;
 

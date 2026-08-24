@@ -17,8 +17,15 @@ const { __fakeDb, __reset: resetDb } = await import('./test-support/fakeFirebase
 const mailer = await import('./test-support/fakeMailer.mjs');
 const gcal = await import('./test-support/fakeGoogleCalendar.mjs');
 const { default: bookHandler } = await import('../api/book-appointment.js');
-const { default: updateDoctorHandler } = await import('../api/admin/update-doctor.js');
-const { default: createEventsHandler } = await import('../api/create-calendar-events.js');
+// api/admin/update-doctor.js and api/create-calendar-events.js were
+// consolidated (Vercel Hobby plan's 12-function limit) into api/admin.js
+// and api/calendar-events.js, routed via a ?action= query param that
+// vercel.json's rewrites supply in production. These wrappers reproduce
+// that dispatch for the real, unmodified consolidated handlers.
+const { default: adminHandler } = await import('../api/admin.js');
+const { default: calendarEventsHandler } = await import('../api/calendar-events.js');
+const updateDoctorHandler = (req, res) => adminHandler({ ...req, query: { action: 'update-doctor' } }, res);
+const createEventsHandler = (req, res) => calendarEventsHandler({ ...req, query: { action: 'create' } }, res);
 
 let passed = 0;
 let failed = 0;

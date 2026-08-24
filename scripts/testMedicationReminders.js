@@ -116,7 +116,12 @@ await test('buildReminderMessage reports the correct day count', () => {
 register('./test-support/firebaseAdminLoader.mjs', import.meta.url);
 const { __fakeDb, __reset } = await import('./test-support/fakeFirebaseAdmin.mjs');
 const { default: createHandler } = await import('../api/create-medication-reminders.js');
-const { default: cronHandler } = await import('../api/cron/send-medication-reminders.js');
+// api/cron/send-medication-reminders.js was consolidated (Vercel Hobby
+// plan's 12-function limit) into api/cron.js, routed via a ?job= query
+// param that vercel.json's rewrites supply in production. This wrapper
+// reproduces that dispatch for the real, unmodified consolidated handler.
+const { default: cronDispatchHandler } = await import('../api/cron.js');
+const cronHandler = (req, res) => cronDispatchHandler({ ...req, query: { job: 'send-medication-reminders' } }, res);
 
 function makeToken(payload) { return Buffer.from(JSON.stringify(payload)).toString('base64'); }
 function makeReq({ uid, body }) {

@@ -12,7 +12,7 @@ import { toDateKey, dateFromKey } from '../../src/utils/slotGeneration.js';
  * notifying each affected patient (existing cancellation email + existing
  * in-app notification pattern) and removing their Google Calendar events
  * via the existing deleteEventForUser. Called once per newly-added leave
- * date from api/admin/update-doctor.js.
+ * date from api/admin.js's update-doctor action.
  *
  * Idempotent by construction, including under true concurrency: the actual
  * status transition for each appointment happens inside a transaction that

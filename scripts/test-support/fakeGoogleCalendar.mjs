@@ -1,9 +1,9 @@
 /**
  * In-memory stand-in for api/lib/googleCalendar.js, used by test scripts (via
  * the module-resolution loader hook in firebaseAdminLoader.mjs) so the REAL,
- * unmodified api/create-calendar-events.js, api/update-calendar-events.js,
- * api/delete-calendar-events.js, and api/reschedule-appointment.js handlers
- * can be exercised without ever calling the live Google Calendar API.
+ * unmodified api/calendar-events.js (create/update/delete actions) and
+ * api/reschedule-appointment.js handlers can be exercised without ever
+ * calling the live Google Calendar API.
  *
  * Simulates: which users have "connected" Google Calendar (mirrors the real
  * googleCalendarTokens/{uid} check — createEventForUser/updateEventForUser

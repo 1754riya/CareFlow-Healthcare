@@ -19,9 +19,17 @@ register('./test-support/firebaseAdminLoader.mjs', import.meta.url);
 const { __fakeDb, __reset: resetDb } = await import('./test-support/fakeFirebaseAdmin.mjs');
 const mailer = await import('./test-support/fakeMailer.mjs');
 const { default: bookHandler } = await import('../api/book-appointment.js');
-const { default: cancelEmailHandler } = await import('../api/send-cancellation-email.js');
-const { default: reminderCronHandler } = await import('../api/cron/send-appointment-reminders.js');
-const { default: retryCronHandler } = await import('../api/cron/retry-failed-emails.js');
+// api/send-cancellation-email.js, api/cron/send-appointment-reminders.js, and
+// api/cron/retry-failed-emails.js were consolidated (Vercel Hobby plan's
+// 12-function limit) into api/appointment-email.js and api/cron.js, routed
+// via a ?action=/?job= query param that vercel.json's rewrites supply in
+// production. These wrappers reproduce that dispatch for the real,
+// unmodified consolidated handlers.
+const { default: appointmentEmailHandler } = await import('../api/appointment-email.js');
+const { default: cronDispatchHandler } = await import('../api/cron.js');
+const cancelEmailHandler = (req, res) => appointmentEmailHandler({ ...req, query: { action: 'cancellation' } }, res);
+const reminderCronHandler = (req, res) => cronDispatchHandler({ ...req, query: { job: 'send-appointment-reminders' } }, res);
+const retryCronHandler = (req, res) => cronDispatchHandler({ ...req, query: { job: 'retry-failed-emails' } }, res);
 
 let passed = 0;
 let failed = 0;
